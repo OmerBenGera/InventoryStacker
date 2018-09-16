@@ -1,0 +1,10 @@
+name: InventoryStacker
+version: 1.0.0
+main: com.ome_r.inventorystacker.InventoryStacker
+author: Ome_R
+depend: [WildStacker]
+commands:
+  stack:
+    description: This command stacks spawner itemstacks in the inventory into 1 item.
+    permission: inventorystacker.use
+    permission-message: Unknown command. Type "/help" for help.
