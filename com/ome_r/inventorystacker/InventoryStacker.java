@@ -41,9 +41,8 @@ public class InventoryStacker extends JavaPlugin implements CommandExecutor {
         for(int slot = 0; slot < player.getInventory().getSize(); slot++){
             ItemStack itemStack = player.getInventory().getItem(slot);
             if(itemStack != null && itemStack.getType() == WMaterial.SPAWNER.parseMaterial()){
-                ItemStack clone = itemStack.clone();
-                EntityType entityType = getSpawnerType(clone);
-                spawnerAmounts.put(entityType, spawnerAmounts.getOrDefault(entityType, 0) + itemStack.getAmount());
+                EntityType entityType = getSpawnerType(itemStack);
+                spawnerAmounts.put(entityType, spawnerAmounts.getOrDefault(entityType, 0) + Utils.getSpawnerItemAmount(itemStack, itemStack.getAmount()));
                 player.getInventory().setItem(slot, new ItemStack(Material.AIR));
             }
         }

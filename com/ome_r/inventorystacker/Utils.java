@@ -29,6 +29,26 @@ public class Utils {
         return itemStack;
     }
 
+    public static int getSpawnerItemAmount(ItemStack itemStack, int def){
+        try{
+            Class craftItemStack = getBukkitClass("inventory.CraftItemStack");
+
+            Object nmsStack = craftItemStack.getMethod("asNMSCopy", ItemStack.class).invoke(null, itemStack);
+            Object tag = getNMSClass("NBTTagCompound").newInstance();
+
+            if((boolean) nmsStack.getClass().getMethod("hasTag").invoke(nmsStack)){
+                tag = nmsStack.getClass().getMethod("getTag").invoke(nmsStack);
+            }
+
+            if((boolean) tag.getClass().getMethod("hasKey", String.class).invoke(tag, "spawners-amount")){
+                return (int) tag.getClass().getMethod("getInt", String.class).invoke(tag, "spawners-amount");
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return def;
+    }
+
     public static String getFormattedType(String type) {
         StringBuilder name = new StringBuilder();
 
